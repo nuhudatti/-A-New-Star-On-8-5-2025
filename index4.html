@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Legacy | Alhaji Sadiq Yusuf & The Shaffi Dynasty</title>
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="The Shaffi Family celebrates the cosmic legacy of Alhaji Sadiq Yusuf and the royal Nupe heritage of the Masaba Royal Family">
+    <meta name="keywords" content="Alhaji Sadiq Yusuf, Shaffi Family, Niger State, Deputy Chief of Staff, Masaba Royal Family, Nupe Dynasty, Bida Emirate, Cosmic Legacy">
+    <meta name="author" content="The Shaffi Family">
+    <meta name="theme-color" content="#0a0f2b">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cosmiclegacy.shaffifamily.com/">
+    <meta property="og:title" content="Cosmic Legacy: The Shaffi Dynasty & Nupe Royal Heritage">
+    <meta property="og:description" content="Celebrating Alhaji Sadiq Yusuf's legacy and the royal Nupe heritage of the Masaba Royal Family">
+    <meta property="og:image" content="https://cosmiclegacy.shaffifamily.com/social-preview.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://cosmiclegacy.shaffifamily.com/">
+    <meta property="twitter:title" content="Cosmic Legacy: The Shaffi Dynasty & Nupe Royal Heritage">
+    <meta property="twitter:description" content="A timeless tribute to Alhaji Sadiq Yusuf and the royal Nupe lineage">
+    <meta property="twitter:image" content="https://cosmiclegacy.shaffifamily.com/twitter-preview.jpg">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --cosmic-dark: #0a0f2b;
+            --cosmic-purple: #3a1d6e;
+            --cosmic-blue: #1d4e89;
+            --cosmic-gold: #d4af37;
+            --cosmic-sand: #e5d9b6;
+            --nupe-red: #8B0000;
+            --nupe-gold: #C5A020;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--cosmic-dark) 0%, #1d1a38 100%);
+            color: #f8f9fa;
+            overflow-x: hidden;
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .cosmic-bg {
+            background: radial-gradient(circle at center, rgba(58, 29, 110, 0.2) 0%, rgba(10, 15, 43, 0) 70%);
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 90% 35%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 20% 75%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 80% 85%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 2px);
+            background-size: 300px 300px;
+            z-index: -1;
+        }
+        
+        .threejs-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+        }
+        
+        .gold-text {
+            color: var(--cosmic-gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .nupe-text {
+            color: var(--nupe-gold);
+            text-shadow: 0 0 10px rgba(197, 160, 32, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            color: var(--cosmic-gold);
+        }
+        
+        .hero-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            max-width: 700px;
+            margin: 2rem auto;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .hero-quote::before,
+        .hero-quote::after {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .hero-quote::before {
+            top: -1.5rem;
+            left: -2rem;
+        }
+        
+        .hero-quote::after {
+            bottom: -2.5rem;
+            right: -2rem;
+        }
+        
+        .cosmic-card {
+            background: rgba(10, 15, 43, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .cosmic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+        }
+        
+        .nupe-card {
+            border: 1px solid rgba(197, 160, 32, 0.5);
+            background: rgba(139, 0, 0, 0.1);
+        }
+        
+        .nupe-card:hover {
+            box-shadow: 0 20px 50px rgba(197, 160, 32, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cosmic-gold), transparent);
+        }
+        
+        .nupe-title::after {
+            background: linear-gradient(90deg, transparent, var(--nupe-gold), transparent);
+        }
+        
+        .image-frame {
+            border: 3px solid var(--cosmic-gold);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .image-frame:before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 5px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .image-frame:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+        }
+        
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-frame:hover img {
+            transform: scale(1.05);
+        }
+        
+        .nupe-frame {
+            border: 3px solid var(--nupe-gold);
+        }
+        
+        .nupe-frame:before {
+            border: 1px solid rgba(197, 160, 32, 0.5);
+        }
+        
+        .content-section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+        
+        .heritage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .heritage-content {
+            padding: 2rem;
+        }
+        
+        .heritage-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--nupe-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .heritage-subtitle {
+            font-size: 1.2rem;
+            color: var(--cosmic-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--cosmic-purple), var(--cosmic-blue), var(--cosmic-gold));
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: calc(50% - 40px);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: calc(50% + 40px);
+        }
+        
+        .timeline-content {
+            background: rgba(10, 15, 43, 0.8);
+            border: 1px solid var(--cosmic-gold);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--cosmic-gold);
+            border-radius: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            right: -50px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -50px;
+        }
+        
+        .blockchain-section {
+            background: rgba(10, 15, 43, 0.9);
+            border-top: 1px solid var(--cosmic-blue);
+            border-bottom: 1px solid var(--cosmic-blue);
+            padding: 4rem 2rem;
+        }
+        
+        .blockchain-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .blockchain-node {
+            background: rgba(29, 78, 137, 0.2);
+            border: 1px solid var(--cosmic-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .blockchain-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cosmic-gold), var(--cosmic-blue), var(--cosmic-purple));
+        }
+        
+        .footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-logo {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--cosmic-purple), var(--cosmic-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+        
+        .footer-logo i {
+            font-size: 3rem;
+            color: var(--cosmic-gold);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 80px);
+                margin-left: 40px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -40px;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Hero Section -->
+    <section class="hero-section">
+        <div class="threejs-container" id="threejs-container"></div>
+        <div class="constellation"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gold-text">Cosmic Legacy</span> of the<br>
+                <span class="nupe-text">Shaffi Dynasty</span>
+            </h1>
+            <p class="hero-subtitle">
+                Honoring Alhaji Sadiq Yusuf and the Royal Nupe Heritage of the Masaba Family
+            </p>
+            <div class="pulse" style="margin: 2rem auto; max-width: 300px;">
+                <div class="image-frame">
+                    <!-- Placeholder for the main family image -->
+                    <div style="background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-crown" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="hero-quote">
+                "A legacy written in the stars, woven with the golden threads of Nupe royalty, echoing through eternity"
+            </p>
+        </div>
+    </section>
+    
+    <!-- Royal Heritage Section -->
+    <section class="content-section cosmic-bg">
+        <div class="container">
+            <h2 class="section-title nupe-title">Royal Nupe Heritage</h2>
+            <div class="heritage-grid">
+                <div class="image-frame nupe-frame">
+                    <!-- Placeholder for royal heritage image -->
+                    <div style="background: linear-gradient(45deg, var(--nupe-red), var(--nupe-gold)); height: 400px; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-landmark" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                    </div>
+                </div>
+                <div class="cosmic-card nupe-card heritage-content">
+                    <h3 class="heritage-title">The Masaba Royal Lineage</h3>
+                    <p class="heritage-subtitle">Etsu Nupe Dynasty of Bida</p>
+                    <p>The Shaffi family traces its roots to the prestigious Masaba Royal Family of Bida, established by the legendary <span class="nupe-text">Masaba dan Malam Dendo</span> in the early 19th century. This royal lineage carries the esteemed title of <span class="nupe-text">Etsu Nupe</span>, signifying leadership over the Nupe people.</p>
+                    <br>
+                    <p>Alhaji Muhammadu Mustapha, known as <span class="nupe-text">Barape Nupe</span>, was a revered patriarch of this royal lineage. His heritage represents centuries of Nupe authority, cultural influence, and leadership that continues through Governor Umar Bago.</p>
+                    <br>
+                    <p>The Bida Emirate remains the cultural heart of the Nupe people, with traditions passed down through generations of the Masaba dynasty.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Leadership Journey -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">A Journey of Leadership</h2>
+            <div class="grid-layout">
+                <!-- Image 1: Smiling and Calling -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--cosmic-blue), var(--cosmic-purple)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-user" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">The Guiding Light</h3>
+                </div>
+                
+                <!-- Image 2: With Title of Rank -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--cosmic-dark), var(--cosmic-blue)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-medal" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">Honored Leadership</h3>
+                </div>
+                
+                <!-- Image 3: Strategic Meeting -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--cosmic-purple), var(--nupe-red)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-handshake" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">Strategic Partnerships</h3>
+                </div>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Roots of Honor</h3>
+                        <p>Born into Northern Nigeria's rich cultural heritage, Alhaji Sadiq Yusuf's foundation was built on the timeless values of integrity, community, and service.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Call to Service</h3>
+                        <p>With humility and dedication, Sadiq embarked on a journey of public service, touching lives through empowerment programs and community development.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Ascension to Leadership</h3>
+                        <p>On June 7, 2023, Sadiq Yusuf was sworn in as Deputy Chief of Staff to the Governor of Niger State, a testament to his integrity and dedication.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h3>Transformative Impact</h3>
+                        <p>Through infrastructure development, youth empowerment, and community initiatives, Alhaji Sadiq Yusuf has transformed lives across Niger State.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Family Legacy Section -->
+    <section class="content-section cosmic-bg">
+        <div class="container">
+            <h2 class="section-title">The Shaffi Family Legacy</h2>
+            <div class="grid-layout">
+                <!-- Image 5: With Governor Bago -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--cosmic-blue), var(--nupe-gold)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-users" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">Governor Collaboration</h3>
+                </div>
+                
+                <!-- Image 6: With Wife and Governor -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--nupe-red), var(--cosmic-gold)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-people-group" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">Family & Leadership</h3>
+                </div>
+                
+                <!-- Image 7: With Wife -->
+                <div class="fade-in">
+                    <div class="image-frame">
+                        <div style="background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-gold)); height: 300px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-heart" style="font-size: 4rem; color: var(--cosmic-gold);"></i>
+                        </div>
+                    </div>
+                    <h3 style="text-align: center; margin-top: 1rem; color: var(--cosmic-gold);">Sacred Union</h3>
+                </div>
+            </div>
+            
+            <div class="cosmic-card" style="max-width: 800px; margin: 3rem auto; padding: 2rem; text-align: center;">
+                <p class="hero-quote" style="margin: 0; font-size: 1.4rem;">
+                    "In the embrace of family, we find the strength to build legacies that outlive the stars. Our heritage is not just our past, but the foundation of our future."
+                </p>
+                <p style="margin-top: 1.5rem; color: var(--cosmic-gold);">- The Shaffi Family</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blockchain Eternalization -->
+    <section class="blockchain-section">
+        <div class="blockchain-container">
+            <h2 class="section-title">Eternal Preservation</h2>
+            <p style="max-width: 700px; margin: 0 auto 2rem; font-size: 1.2rem;">
+                This cosmic legacy is immortalized on the blockchain, ensuring it will shine forever in the digital universe
+            </p>
+            
+            <div class="blockchain-node">
+                <h3 style="color: var(--cosmic-gold); margin-bottom: 1rem;">Blockchain Verification</h3>
+                <div style="background: rgba(10, 15, 43, 0.7); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-family: monospace; font-size: 0.9rem; color: var(--cosmic-gold); margin-bottom: 0.5rem;">
+                        Legacy Transaction ID
+                    </div>
+                    <div style="font-family: monospace; font-size: 0.8rem; background: rgba(29, 78, 137, 0.2); padding: 1rem; border-radius: 5px; word-break: break-all;">
+                        0x8a3dF729c1bE372fc7930f9F7a1cD5E5dE9b4A2c<br>
+                        Timestamp: 2025-08-04 12:34:56 UTC<br>
+                        Block: #18,472,956
+                    </div>
+                    <div style="margin-top: 1rem; color: var(--cosmic-gold);">
+                        <i class="fas fa-lock"></i> Immutably stored on the Ethereum blockchain for eternity
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="fas fa-infinity"></i>
+        </div>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 2rem; margin-bottom: 1rem;">
+            The Shaffi Cosmic Legacy
+        </h3>
+        <p style="max-width: 600px; margin: 0 auto 2rem;">
+            "A legacy that transcends time, space, and generations - written in the stars, cherished on earth"
+        </p>
+        <p style="color: var(--cosmic-gold);">
+            &copy; 2025 The Shaffi Family. All rights preserved for eternity.<br>
+            Minna, Niger State, Nigeria
+        </p>
+    </footer>
+    
+    <script>
+        // Create Three.js cosmic background
+        function createCosmicBackground() {
+            const container = document.getElementById('threejs-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            
+            // Create stars
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.1,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const starsVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = THREE.MathUtils.randFloatSpread(2000);
+                const y = THREE.MathUtils.randFloatSpread(2000);
+                const z = THREE.MathUtils.randFloatSpread(2000);
+                starsVertices.push(x, y, z);
+            }
+            
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const starField = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(starField);
+            
+            // Create cosmic fog
+            scene.fog = new THREE.FogExp2(0x0a0f2b, 0.001);
+            
+            // Create nebula
+            const nebulaGeometry = new THREE.SphereGeometry(100, 32, 32);
+            const nebulaMaterial = new THREE.MeshBasicMaterial({
+                color: 0x3a1d6e,
+                transparent: true,
+                opacity: 0.05
+            });
+            const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+            scene.add(nebula);
+            
+            // Position camera
+            camera.position.z = 500;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                starField.rotation.x += 0.0001;
+                starField.rotation.y += 0.0001;
+                
+                nebula.rotation.x += 0.00005;
+                nebula.rotation.y += 0.00005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createCosmicBackground();
+            
+            // Add scroll animation effects
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

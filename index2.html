@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Legacy | Alhaji Sadiq Yusuf</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cosmic: {
+                            dark: '#0a0f2b',
+                            purple: '#3a1d6e',
+                            blue: '#1d4e89',
+                            gold: '#d4af37',
+                            sand: '#e5d9b6'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Cinzel', 'serif'],
+                        body: ['Montserrat', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 8s ease-in-out infinite',
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0f2b 0%, #1d1a38 100%);
+            color: #f8f9fa;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .cosmic-bg {
+            background: radial-gradient(circle at center, rgba(58, 29, 110, 0.2) 0%, rgba(10, 15, 43, 0) 70%);
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 4s) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .nigerian-pattern {
+            background-image: 
+                radial-gradient(circle, transparent 20%, #0a0f2b 80%),
+                repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.1) 0px, rgba(212, 175, 55, 0.1) 1px, transparent 1px, transparent 11px),
+                repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.1) 0px, rgba(212, 175, 55, 0.1) 1px, transparent 1px, transparent 11px);
+            background-size: cover, 20px 20px, 20px 20px;
+        }
+        
+        .gold-glow {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.7);
+        }
+        
+        .cosmic-card {
+            background: rgba(10, 15, 43, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .cosmic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+        }
+        
+        .timeline-path {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #3a1d6e, #1d4e89, #d4af37);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        
+        .timeline-node {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 90% 35%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 20% 75%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 80% 85%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 2px);
+            background-size: 300px 300px;
+            z-index: -1;
+        }
+        
+        .family-icon {
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .family-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .family-icon:hover {
+            transform: scale(1.1) rotate(3deg);
+        }
+        
+        .family-icon:hover::before {
+            opacity: 1;
+        }
+        
+        .blockchain-node {
+            position: relative;
+            background: rgba(29, 78, 137, 0.2);
+            border: 1px solid rgba(29, 78, 137, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .blockchain-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #d4af37, #1d4e89, #3a1d6e);
+        }
+        
+        .eternal-shadow {
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3), 
+                         0 0 100px rgba(58, 29, 110, 0.2),
+                         0 0 150px rgba(29, 78, 137, 0.1);
+        }
+        
+        .hero-text {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 4s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        
+        .threejs-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .nigerian-border {
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .nigerian-border::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        .quote-mark {
+            font-size: 8rem;
+            position: absolute;
+            top: -50px;
+            left: -30px;
+            color: rgba(212, 175, 55, 0.1);
+            z-index: 0;
+        }
+        
+        .starry-divider {
+            position: relative;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 2rem 0;
+        }
+        
+        .starry-divider::before,
+        .starry-divider::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #d4af37;
+            font-size: 1.5rem;
+        }
+        
+        .starry-divider::before {
+            left: 20%;
+        }
+        
+        .starry-divider::after {
+            right: 20%;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2.5rem;
+            }
+            .timeline-path {
+                left: 30px;
+            }
+            .timeline-node {
+                margin-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+    <!-- Three.js Cosmic Background -->
+    <div id="threejs-container" class="threejs-container"></div>
+    
+    <!-- Main Content -->
+    <div class="relative z-10">
+        <!-- Cosmic Hero Section -->
+        <header class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+            <div class="absolute inset-0">
+                <div class="constellation"></div>
+                <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-cosmic-purple to-transparent rounded-full filter blur-[100px] opacity-30"></div>
+                <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-cosmic-blue to-transparent rounded-full filter blur-[120px] opacity-20"></div>
+            </div>
+            
+            <div class="max-w-6xl mx-auto text-center relative z-10">
+                <div class="mb-10">
+                    <div class="animate-float inline-block">
+                        <div class="relative">
+                            <div class="absolute -inset-6 bg-cosmic-gold rounded-full filter blur-2xl opacity-30 animate-pulse"></div>
+                            <div class="bg-gradient-to-br from-cosmic-purple to-cosmic-blue p-2 rounded-full relative">
+                                <div class="bg-cosmic-dark rounded-full p-6">
+                                    <div class="bg-gradient-to-br from-cosmic-sand to-cosmic-gold w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center overflow-hidden nigerian-pattern">
+                                        <div class="bg-cosmic-dark/90 w-56 h-56 md:w-72 md:h-72 rounded-full flex items-center justify-center pulse-glow">
+                                            <i class="fas fa-baby text-8xl text-cosmic-gold"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1 class="font-display text-4xl md:text-6xl lg:text-7xl mb-6 hero-text">
+                    <span class="text-cosmic-gold">A New Star</span> in the Cosmic Legacy
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-cosmic-gold max-w-3xl mx-auto mb-12">
+                    Celebrating the birth of Alhaji Sadiq Yusuf's son on August 4, 2025 - a new chapter in a legacy of honor, dignity and integrity
+                </p>
+                
+                <div class="starry-divider w-1/2 mx-auto"></div>
+                
+                <div class="mt-12">
+                    <p class="text-lg md:text-xl max-w-2xl mx-auto italic">
+                        "Every child is a star in the constellation of humanity, destined to shine with their own unique light upon the world."
+                    </p>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Legacy Timeline -->
+        <section class="py-20 px-4 relative">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-display text-3xl md:text-4xl text-center mb-20">
+                    <span class="border-b-2 border-cosmic-gold pb-2">The Eternal Journey</span>
+                </h2>
+                
+                <div class="relative">
+                    <div class="timeline-path hidden md:block"></div>
+                    
+                    <!-- Timeline Nodes -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <!-- Node 1 -->
+                        <div class="timeline-node cosmic-card p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-purple to-cosmic-blue flex items-center justify-center mr-6">
+                                    <i class="fas fa-seedling text-2xl text-cosmic-gold"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">Roots of Honor</h3>
+                                    <p class="text-gray-300">
+                                        Born into Northern Nigeria's rich cultural heritage, Sadiq Yusuf's foundation was built on the timeless values of integrity, community, and service.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-purple to-cosmic-blue p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Node 2 -->
+                        <div class="timeline-node cosmic-card p-8 md:mt-40">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-blue to-cosmic-gold flex items-center justify-center mr-6">
+                                    <i class="fas fa-hands-helping text-2xl text-cosmic-gold"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">Path of Service</h3>
+                                    <p class="text-gray-300">
+                                        With humility and dedication, Sadiq embarked on a journey of public service, touching lives through empowerment programs and community development.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-blue to-cosmic-gold p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Node 3 -->
+                        <div class="timeline-node cosmic-card p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-gold to-cosmic-purple flex items-center justify-center mr-6">
+                                    <i class="fas fa-ring text-2xl text-cosmic-purple"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">Sacred Union</h3>
+                                    <p class="text-gray-300">
+                                        A marriage rooted in mutual respect and shared vision, creating a partnership that would become the foundation of their growing legacy.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-gold to-cosmic-purple p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Node 4 -->
+                        <div class="timeline-node cosmic-card p-8 md:mt-40">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-purple to-cosmic-blue flex items-center justify-center mr-6">
+                                    <i class="fas fa-star text-2xl text-cosmic-gold"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">Ascension to Leadership</h3>
+                                    <p class="text-gray-300">
+                                        On June 7, 2023, Sadiq Yusuf was sworn in as Deputy Chief of Staff to the Governor of Niger State, a testament to his integrity and dedication.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-purple to-cosmic-blue p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Node 5 -->
+                        <div class="timeline-node cosmic-card p-8">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-gold to-cosmic-blue flex items-center justify-center mr-6">
+                                    <i class="fas fa-sun text-2xl text-cosmic-purple"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">Recognition of Excellence</h3>
+                                    <p class="text-gray-300">
+                                        In November 2024, Governor Bago publicly celebrated Sadiq's transformative leadership and impact on public service in Niger State.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-gold to-cosmic-blue p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Node 6 -->
+                        <div class="timeline-node cosmic-card p-8 md:mt-40">
+                            <div class="flex items-start mb-6">
+                                <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cosmic-blue to-cosmic-gold flex items-center justify-center mr-6">
+                                    <i class="fas fa-baby text-2xl text-cosmic-gold"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display text-2xl mb-2">A New Star is Born</h3>
+                                    <p class="text-gray-300">
+                                        On August 4, 2025, the Yusuf legacy entered a new chapter with the birth of a baby boy - a new light in the cosmic journey.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-center">
+                                <div class="bg-gradient-to-br from-cosmic-blue to-cosmic-gold p-1 rounded-lg">
+                                    <div class="bg-cosmic-dark/80 p-4 rounded-lg">
+                                        <div class="bg-gray-200 border-2 border-dashed rounded-xl w-32 h-32"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Family Constellation -->
+        <section class="py-20 px-4 cosmic-bg relative overflow-hidden">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-display text-3xl md:text-4xl text-center mb-20">
+                    <span class="border-b-2 border-cosmic-gold pb-2">The Eternal Family Constellation</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Father -->
+                    <div class="family-icon cosmic-card p-8 text-center">
+                        <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-cosmic-purple to-cosmic-blue flex items-center justify-center mb-6">
+                            <i class="fas fa-crown text-5xl text-cosmic-gold"></i>
+                        </div>
+                        <h3 class="font-display text-2xl mb-2">The Pillar</h3>
+                        <h4 class="text-cosmic-gold mb-4">Alhaji Sadiq Yusuf</h4>
+                        <p class="text-gray-300">
+                            A beacon of integrity whose leadership illuminates the path for future generations. His unwavering commitment to service has transformed countless lives.
+                        </p>
+                    </div>
+                    
+                    <!-- Mother -->
+                    <div class="family-icon cosmic-card p-8 text-center">
+                        <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-cosmic-blue to-cosmic-gold flex items-center justify-center mb-6">
+                            <i class="fas fa-heart text-5xl text-cosmic-purple"></i>
+                        </div>
+                        <h3 class="font-display text-2xl mb-2">The Heart</h3>
+                        <h4 class="text-cosmic-gold mb-4">The Nurturing Force</h4>
+                        <p class="text-gray-300">
+                            The foundation of love and strength, whose wisdom and compassion create the sanctuary from which this legacy grows and flourishes.
+                        </p>
+                    </div>
+                    
+                    <!-- Child -->
+                    <div class="family-icon cosmic-card p-8 text-center">
+                        <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-cosmic-gold to-cosmic-purple flex items-center justify-center mb-6">
+                            <i class="fas fa-star text-5xl text-cosmic-blue"></i>
+                        </div>
+                        <h3 class="font-display text-2xl mb-2">The Future</h3>
+                        <h4 class="text-cosmic-gold mb-4">The Newborn Star</h4>
+                        <p class="text-gray-300">
+                            Born on August 4, 2025, this new light represents hope, potential, and the eternal continuation of a legacy built on honor and dignity.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Family Portrait -->
+                <div class="mt-20 cosmic-card p-8 max-w-4xl mx-auto relative">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1">
+                            <div class="bg-gradient-to-br from-cosmic-purple to-cosmic-blue p-1 rounded-xl">
+                                <div class="bg-cosmic-dark rounded-xl p-6">
+                                    <div class="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 relative">
+                            <div class="quote-mark font-display">"</div>
+                            <p class="font-display text-2xl italic mb-6 relative z-10">
+                                In the embrace of family, we find the strength to build legacies that outlive the stars. This child is not just our future, but a promise to all who believe in the power of honorable leadership.
+                            </p>
+                            <p class="text-xl text-cosmic-gold relative z-10">
+                                - Alhaji Sadiq Yusuf
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Blockchain Eternalization -->
+        <section class="py-20 px-4">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="font-display text-3xl md:text-4xl text-center mb-4">
+                    Eternal Preservation in the Digital Cosmos
+                </h2>
+                <p class="text-center text-cosmic-gold text-xl mb-16 max-w-2xl mx-auto">
+                    This legacy is immortalized through blockchain technology for eternity
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <div class="blockchain-node p-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto bg-cosmic-blue/20 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-link text-2xl text-cosmic-gold"></i>
+                            </div>
+                            <h3 class="font-display text-xl mb-2">Immutable Record</h3>
+                            <p class="text-gray-300 text-sm">
+                                This legacy is permanently stored across thousands of nodes worldwide, ensuring it can never be altered or erased.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="blockchain-node p-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto bg-cosmic-blue/20 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-infinity text-2xl text-cosmic-gold"></i>
+                            </div>
+                            <h3 class="font-display text-xl mb-2">Timeless Access</h3>
+                            <p class="text-gray-300 text-sm">
+                                Future generations will access this legacy through decentralized networks, preserving the story for centuries.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="blockchain-node p-6">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto bg-cosmic-blue/20 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-shield-alt text-2xl text-cosmic-gold"></i>
+                            </div>
+                            <h3 class="font-display text-xl mb-2">Digital Immortality</h3>
+                            <p class="text-gray-300 text-sm">
+                                Cryptographic verification ensures the authenticity of this legacy across all future technological eras.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cosmic-card p-8 max-w-3xl mx-auto">
+                    <div class="text-center">
+                        <h3 class="font-display text-2xl mb-6">Blockchain Verification</h3>
+                        <div class="bg-cosmic-dark border border-cosmic-gold/30 rounded-xl p-6">
+                            <div class="font-mono text-sm text-gray-400 mb-2">Legacy Transaction ID</div>
+                            <div class="font-mono text-xs bg-cosmic-purple/10 p-4 rounded-lg break-all mb-4">
+                                0x8a3dF729c1bE372fc7930f9F7a1cD5E5dE9b4A2c<br>
+                                Timestamp: 2025-08-04 12:34:56 UTC<br>
+                                Block: #18,472,956
+                            </div>
+                            <div class="mt-4 text-cosmic-gold text-sm">
+                                <i class="fas fa-lock mr-2"></i> Immutably stored on the Ethereum blockchain for eternity
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Cosmic Footer -->
+        <footer class="py-16 px-4 border-t border-cosmic-purple/30">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-10">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-cosmic-purple to-cosmic-blue rounded-full flex items-center justify-center eternal-shadow">
+                        <i class="fas fa-infinity text-4xl text-cosmic-gold"></i>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-10">
+                    <h3 class="font-display text-3xl mb-6">A Legacy That Echoes Through Eternity</h3>
+                    <p class="max-w-2xl mx-auto text-xl text-gray-400">
+                        From the heart of Northern Nigeria to the cosmos beyond, the story of honor, dignity and service continues...
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 mb-10">
+                    <a href="#" class="w-12 h-12 rounded-full bg-cosmic-blue/20 flex items-center justify-center hover:bg-cosmic-gold/20 transition">
+                        <i class="fab fa-twitter text-cosmic-gold"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-cosmic-blue/20 flex items-center justify-center hover:bg-cosmic-gold/20 transition">
+                        <i class="fab fa-facebook-f text-cosmic-gold"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-cosmic-blue/20 flex items-center justify-center hover:bg-cosmic-gold/20 transition">
+                        <i class="fab fa-instagram text-cosmic-gold"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 rounded-full bg-cosmic-blue/20 flex items-center justify-center hover:bg-cosmic-gold/20 transition">
+                        <i class="fab fa-linkedin-in text-cosmic-gold"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center text-gray-500 text-sm">
+                    <p>This cosmic legacy is eternally preserved on the blockchain • August 4, 2025</p>
+                    <p class="mt-2">Designed to inspire generations across Nigeria, Africa, and the world</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Create starfield background
+        function createStars() {
+            const container = document.getElementById('threejs-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            
+            // Create stars
+            const starsGeometry = new THREE.BufferGeometry();
+            const starsMaterial = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 0.1,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const starsVertices = [];
+            for (let i = 0; i < 10000; i++) {
+                const x = THREE.MathUtils.randFloatSpread(2000);
+                const y = THREE.MathUtils.randFloatSpread(2000);
+                const z = THREE.MathUtils.randFloatSpread(2000);
+                starsVertices.push(x, y, z);
+            }
+            
+            starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+            const starField = new THREE.Points(starsGeometry, starsMaterial);
+            scene.add(starField);
+            
+            // Create cosmic fog
+            scene.fog = new THREE.FogExp2(0x0a0f2b, 0.001);
+            
+            // Create nebula
+            const nebulaGeometry = new THREE.SphereGeometry(100, 32, 32);
+            const nebulaMaterial = new THREE.MeshBasicMaterial({
+                color: 0x3a1d6e,
+                transparent: true,
+                opacity: 0.05
+            });
+            const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+            scene.add(nebula);
+            
+            // Position camera
+            camera.position.z = 500;
+            
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                starField.rotation.x += 0.0001;
+                starField.rotation.y += 0.0001;
+                
+                nebula.rotation.x += 0.00005;
+                nebula.rotation.y += 0.00005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Add scroll animation effects
+            const timelineNodes = document.querySelectorAll('.timeline-node');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineNodes.forEach(node => {
+                node.style.opacity = 0;
+                node.style.transform = 'translateY(30px)';
+                node.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(node);
+            });
+        });
+    </script>
+</body>
+</html>
