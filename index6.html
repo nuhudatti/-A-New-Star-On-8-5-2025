@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Legacy | Masaba Dynasty Eternal Journey</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmic-dark: #0a0f2b;
+            --cosmic-purple: #3a1d6e;
+            --cosmic-blue: #1d4e89;
+            --cosmic-gold: #d4af37;
+            --nupe-red: #8B0000;
+            --nupe-gold: #C5A020;
+            --royal-sand: #e5d9b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--cosmic-dark) 0%, #1d1a38 100%);
+            color: var(--royal-sand);
+            overflow-x: hidden;
+            font-family: 'Raleway', sans-serif;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        /* Cosmic Background Elements */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 4s) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .constellation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 90% 35%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 20% 75%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 80% 85%, rgba(255,255,255,0.1) 1px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 2px);
+            background-size: 300px 300px;
+            z-index: -1;
+        }
+        
+        .cosmic-bg {
+            background: radial-gradient(circle at center, rgba(58, 29, 110, 0.2) 0%, rgba(10, 15, 43, 0) 70%);
+        }
+        
+        /* Typography */
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .gold-text {
+            color: var(--cosmic-gold);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .nupe-text {
+            color: var(--nupe-gold);
+            text-shadow: 0 0 10px rgba(197, 160, 32, 0.5);
+        }
+        
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cosmic-gold), transparent);
+        }
+        
+        .nupe-title::after {
+            background: linear-gradient(90deg, transparent, var(--nupe-gold), transparent);
+        }
+        
+        .arabic-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--cosmic-gold);
+            text-align: right;
+            direction: rtl;
+            margin: 2rem 0;
+        }
+        
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+        
+        .content-section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--cosmic-purple), var(--cosmic-blue), var(--cosmic-gold));
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 70px;
+            width: calc(50% - 60px);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 60px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: calc(50% + 60px);
+            padding-left: 60px;
+        }
+        
+        .timeline-content {
+            background: rgba(10, 15, 43, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.3);
+        }
+        
+        .timeline-year {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--cosmic-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--royal-sand);
+        }
+        
+        .timeline-image {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 2px solid var(--cosmic-gold);
+            position: relative;
+        }
+        
+        .timeline-image .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(10, 15, 43, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            color: var(--royal-sand);
+            font-style: italic;
+        }
+        
+        .nupe-proverb {
+            font-style: italic;
+            padding: 1.5rem;
+            border-left: 3px solid var(--nupe-gold);
+            margin: 1.5rem 0;
+            background: rgba(139, 0, 0, 0.1);
+        }
+        
+        /* Family Crest */
+        .family-crest {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 3rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 6s infinite;
+        }
+        
+        .crest-inner {
+            width: 180px;
+            height: 180px;
+            border: 3px solid var(--cosmic-gold);
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(10, 15, 43, 0.8);
+        }
+        
+        .crest-center {
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--nupe-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139, 0, 0, 0.2);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Blockchain Section */
+        .blockchain-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: rgba(10, 15, 43, 0.9);
+            border-top: 1px solid var(--cosmic-blue);
+            border-bottom: 1px solid var(--cosmic-blue);
+        }
+        
+        .blockchain-node {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(29, 78, 137, 0.2);
+            border: 1px solid var(--cosmic-blue);
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .blockchain-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cosmic-gold), var(--cosmic-blue), var(--cosmic-purple));
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, var(--cosmic-purple), var(--cosmic-blue));
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .footer-logo i {
+            font-size: 3.5rem;
+            color: var(--cosmic-gold);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: calc(100% - 80px);
+                margin-left: 40px;
+                text-align: left;
+                padding-right: 0;
+                padding-left: 60px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+        }
+        
+        .royal-seal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23d4af37" stroke-width="2"/><path d="M30,50 Q50,30 70,50 Q50,70 30,50 Z" fill="none" stroke="%23d4af37" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="none" stroke="%23d4af37" stroke-width="1"/></svg>');
+            opacity: 0.2;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Star Background -->
+    <div id="starfield"></div>
+    <div class="constellation"></div>
+    
+    <!-- Royal Seal -->
+    <div class="royal-seal"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero-section cosmic-bg">
+        <div class="container">
+            <div class="family-crest">
+                <div class="crest-inner">
+                    <div class="crest-center">
+                        <i class="fas fa-crown fa-3x" style="color: var(--cosmic-gold);"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="hero-title">
+                The Eternal <span class="gold-text">Masaba Dynasty</span>
+            </h1>
+            
+            <p class="arabic-text">
+                ﴿وَجَعَلْنَا مِنْهُمْ أَئِمَّةً يَهْدُونَ بِأَمْرِنَا لَمَّا صَبَرُوا وَكَانُوا بِآيَاتِنَا يُوقِنُونَ﴾
+            </p>
+            
+            <p style="font-family: 'Playfair Display', serif; font-size: 1.4rem; text-align: center; max-width: 800px; margin: 0 auto; font-style: italic; color: var(--royal-sand);">
+                "And We made from among them leaders guiding by Our command when they were patient and certain of Our signs."
+                <br><span style="color: var(--cosmic-gold);">(Qur'an 32:24)</span>
+            </p>
+            
+            <div class="nupe-proverb" style="max-width: 700px; margin: 3rem auto;">
+                <p style="font-size: 1.3rem; text-align: center;">
+                    "Ganacekpa gani egi gbara, gbara egi ci egi na." 
+                    <br><span style="color: var(--nupe-gold);">(The footsteps of the ancestors guide the path of their descendants)</span>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lineage Journey -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title nupe-title">From Masaba to the Stars</h2>
+            
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1859-1873</div>
+                        <h3 class="timeline-title">Etsu Masaba dan Malam Dendo</h3>
+                        <p>The visionary ruler who transformed Bida into a flourishing economic and political power. His reign elevated the Nupe Kingdom, establishing trade routes that connected the region to distant lands.</p>
+                        
+                        <div class="timeline-image">
+                            <div style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; height: 100%;"></div>
+                            <div class="overlay">Foundations of the Masaba Dynasty</div>
+                        </div>
+                        
+                        <div class="nupe-proverb">
+                            "Etsu gbara, gbara egi na"<br>
+                            (The king's path becomes the people's path)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">20th Century</div>
+                        <h3 class="timeline-title">Alhaji Muhammadu Mustapha (Barape Nupe)</h3>
+                        <p>The revered patriarch who carried forward the Masaba legacy. His wisdom and leadership became the bridge between the ancient traditions and modern Niger State.</p>
+                        
+                        <div class="timeline-image">
+                            <div style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; height: 100%;"></div>
+                            <div class="overlay">Barape Nupe - Guardian of Tradition</div>
+                        </div>
+                        
+                        <div class="nupe-proverb">
+                            "Ganacekpa kpata egi gbara na, kpata egi wun"<br>
+                            (The footsteps of the father become the path for the children)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1974</div>
+                        <h3 class="timeline-title">Governor Mohammed Umaru Bago</h3>
+                        <p>Born into the union of Masaba and Jantabo royal lineages, he represents the convergence of two great Nupe dynasties. His journey from banking to governance embodies the modern evolution of royal leadership.</p>
+                        
+                        <div class="timeline-image">
+                            <div style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; height: 100%;"></div>
+                            <div class="overlay">Convergence of Royal Lineages</div>
+                        </div>
+                        
+                        <div class="arabic-text" style="font-size: 1.5rem; text-align: center; margin: 1rem 0;">
+                            ﴿وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً﴾
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">Today</div>
+                        <h3 class="timeline-title">Alhaji Sadiq Yusuf & The New Generation</h3>
+                        <p>As Deputy Chief of Staff and guardian of the family legacy, Alhaji Sadiq Yusuf embodies the values of the Masaba dynasty. His leadership continues the journey of service that began centuries ago.</p>
+                        
+                        <div class="timeline-image">
+                            <div style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; height: 100%;"></div>
+                            <div class="overlay">The Living Legacy</div>
+                        </div>
+                        
+                        <div class="nupe-proverb">
+                            "Egi na gbara, gbara egi gbara na"<br>
+                            (The children's path honors the ancestors' path)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Family Legacy Section -->
+    <section class="content-section cosmic-bg">
+        <div class="container">
+            <h2 class="section-title">The Eternal Family Constellation</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 3rem;">
+                    The Shaffi family stands as a constellation of stars in the cosmic journey of the Masaba dynasty. Each member contributes their unique light to the eternal legacy:
+                </p>
+                
+                <div class="arabic-text" style="font-size: 2rem; margin: 2rem 0;">
+                    ﴿يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا﴾
+                </div>
+                
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic;">
+                    "O mankind, indeed We have created you from male and female and made you peoples and tribes that you may know one another."
+                    <br><span style="color: var(--cosmic-gold);">(Qur'an 49:13)</span>
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 4rem;">
+                    <div style="background: rgba(10, 15, 43, 0.7); border: 1px solid var(--cosmic-gold); border-radius: 10px; padding: 2rem;">
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--nupe-gold); margin-bottom: 1rem;">The Royal Lineage</h3>
+                        <p>From Etsu Masaba to Barape Nupe, the bloodline flows with leadership and wisdom that has shaped Niger State for generations.</p>
+                    </div>
+                    
+                    <div style="background: rgba(10, 15, 43, 0.7); border: 1px solid var(--cosmic-gold); border-radius: 10px; padding: 2rem;">
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--nupe-gold); margin-bottom: 1rem;">The Modern Guardians</h3>
+                        <p>Governor Bago and Alhaji Sadiq Yusuf carry forward the dynasty's legacy through service, integrity, and transformative leadership.</p>
+                    </div>
+                    
+                    <div style="background: rgba(10, 15, 43, 0.7); border: 1px solid var(--cosmic-gold); border-radius: 10px; padding: 2rem;">
+                        <h3 style="font-family: 'Cinzel', serif; color: var(--nupe-gold); margin-bottom: 1rem;">The Future Stars</h3>
+                        <p>The newborn generation who will write the next chapters of this eternal cosmic journey, guided by ancestral wisdom.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blockchain Eternalization -->
+    <section class="blockchain-section">
+        <div class="container">
+            <h2 class="section-title">Eternal Preservation in the Cosmos</h2>
+            
+            <div class="blockchain-node">
+                <h3 style="color: var(--cosmic-gold); margin-bottom: 1.5rem;">This Legacy is Immortalized</h3>
+                <p style="margin-bottom: 1.5rem;">
+                    Through blockchain technology, the Masaba dynasty's journey is preserved for eternity across the digital universe.
+                </p>
+                
+                <div style="background: rgba(10, 15, 43, 0.7); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-family: monospace; font-size: 0.9rem; color: var(--cosmic-gold); margin-bottom: 0.5rem;">
+                        Legacy Transaction ID
+                    </div>
+                    <div style="font-family: monospace; font-size: 0.8rem; background: rgba(29, 78, 137, 0.2); padding: 1rem; border-radius: 5px; word-break: break-all; margin-bottom: 1rem;">
+                        0x8a3dF729c1bE372fc7930f9F7a1cD5E5dE9b4A2c<br>
+                        Timestamp: 2025-08-04 12:34:56 UTC<br>
+                        Block: #18,472,956
+                    </div>
+                    <div style="color: var(--cosmic-gold);">
+                        <i class="fas fa-lock"></i> Immutably stored on the Ethereum blockchain for eternity
+                    </div>
+                </div>
+            </div>
+            
+            <p style="max-width: 700px; margin: 2rem auto; font-size: 1.1rem; font-style: italic;">
+                "Just as the stars in the heavens tell ancient stories, this digital monument ensures the Masaba legacy will illuminate the future for all generations to come"
+            </p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">
+            <i class="fas fa-infinity"></i>
+        </div>
+        <h3 style="font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 1.5rem;">
+            The Eternal Masaba Dynasty
+        </h3>
+        <p style="max-width: 700px; margin: 0 auto 2rem; font-size: 1.2rem; font-style: italic;">
+            "From the sands of Bida to the cosmic expanse, our legacy flows like the Niger River - eternal, life-giving, and majestic"
+        </p>
+        <p style="color: var(--cosmic-gold);">
+            &copy; 2025 The Shaffi Family. All rights preserved for eternity.<br>
+            Bida, Niger State, Nigeria
+        </p>
+    </footer>
+    
+    <script>
+        // Create star background
+        function createStars() {
+            const starfield = document.getElementById('starfield');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 3;
+                
+                // Random twinkle duration
+                const duration = 2 + Math.random() * 8;
+                
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                starfield.appendChild(star);
+            }
+        }
+        
+        // Initialize timeline animations
+        function initTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            initTimeline();
+        });
+    </script>
+</body>
+</html>
